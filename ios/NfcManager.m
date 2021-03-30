@@ -198,7 +198,7 @@ RCT_EXPORT_MODULE()
                        body:@{}];
 }
 
-- (void)tagReaderSession:(NFCTagReaderSession *)session didDetectTags:(NSArray<__kindof id<NFCTag>> *)tags
+- (void)tagReaderSession:(NFCNDEFReaderSession *)session didDetectTags:(NSArray<__kindof id<NFCTag>> *)tags
 {
     NSLog(@"NFCTag didDetectTags");
     if (@available(iOS 13.0, *)) {
@@ -230,7 +230,7 @@ RCT_EXPORT_MODULE()
     }
 }
 
-- (void)tagReaderSession:(NFCTagReaderSession *)session didInvalidateWithError:(NSError *)error
+- (void)tagReaderSession:(NFCNDEFReaderSession *)session didInvalidateWithError:(NSError *)error
 {
     NSLog(@"NFCTag didInvalidateWithError");
     if (techRequestCallback) {
@@ -243,7 +243,7 @@ RCT_EXPORT_MODULE()
                        body:@{}];
 }
 
-- (void)tagReaderSessionDidBecomeActive:(NFCTagReaderSession *)session
+- (void)tagReaderSessionDidBecomeActive:(NFCNDEFReaderSession *)session
 {
     NSLog(@"NFCTag didBecomeActive");
 }
@@ -262,7 +262,7 @@ RCT_EXPORT_METHOD(isSupported: (NSString *)tech callback:(nonnull RCTResponseSen
         }
     } else if ([tech isEqualToString:@"mifare"] || [tech isEqualToString:@"felica"] || [tech isEqualToString:@"iso15693"] || [tech isEqualToString:@"IsoDep"]) {
         if (@available(iOS 13.0, *)) {
-            callback(@[[NSNull null], NFCTagReaderSession.readingAvailable ? @YES : @NO]);
+            callback(@[[NSNull null], NFCNDEFReaderSession.readingAvailable ? @YES : @NO]);
             return;
         }
     }
@@ -288,7 +288,7 @@ RCT_EXPORT_METHOD(requestTechnology: (NSArray *)techs options: (NSDictionary *)o
 {
     if (@available(iOS 13.0, *)) {
         if (tagSession == nil && session == nil) {
-            tagSession = [[NFCTagReaderSession alloc]
+            tagSession = [[NFCNDEFReaderSession alloc]
                          initWithPollingOption:(NFCPollingISO14443 | NFCPollingISO15693) delegate:self queue:dispatch_get_main_queue()];
             tagSession.alertMessage = [options objectForKey:@"alertMessage"];
             [tagSession beginSession];

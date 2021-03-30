@@ -9,10 +9,10 @@
 #endif
 #import <CoreNFC/CoreNFC.h>
 
-@interface NfcManager : RCTEventEmitter <RCTBridgeModule, NFCNDEFReaderSessionDelegate, NFCTagReaderSessionDelegate> {
+@interface NfcManager : RCTEventEmitter <RCTBridgeModule, NFCNDEFReaderSessionDelegate, NFCNDEFReaderSessionDelegate> {
 
 }
 
 @property (strong, nonatomic) NFCNDEFReaderSession *session;
-@property (strong, nonatomic) NFCTagReaderSession *tagSession;
+@property (strong, nonatomic) NFCNDEFReaderSession *tagSession;
 @end
